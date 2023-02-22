@@ -1,4 +1,10 @@
 import { useState } from "react";
+
+import JSConfetti from "js-confetti";
+
+const jsConfetti = new JSConfetti();
+
+jsConfetti.addConfetti();
 // custom components
 import CustomForm from "./components/CustomForm";
 import OneThing from "./components/OneThing";
@@ -30,9 +36,15 @@ function App() {
     setThing(e.target.value);
   };
 
-  const handleCompletedThing = (e) => {
+  const handleCompletedThing = async (e) => {
     e.target.setAttribute("disabled", true);
     setThing(getSuccessMessage());
+    await jsConfetti.addConfetti({
+      emojis: ["🫡", "📈", "🚀"],
+    });
+    e.target.removeAttribute("disabled");
+    setThing("");
+    setIsCompleted(true);
   };
 
   return (
